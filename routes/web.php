@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\DepartmentProfileController;
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -21,4 +25,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+});
+
+$protocol = config('app.https') ? 'https://' : 'http://';
+
+Route::domain($protocol . '{currentDept}.' . config('app.base_url'))->group(function () {
+ //   Route::resource('departments', DepartmentController::class);
+    Route::resource('permissions', PermissionController::class);
+ //   Route::resource('department_profiles', DepartmentProfileController::class);
+
 });

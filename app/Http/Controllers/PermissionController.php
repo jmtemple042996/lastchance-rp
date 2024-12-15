@@ -45,7 +45,7 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index', ['currentDept' => $currentDepartment]))
             ->with('flash.banner', 'Permission created.');
     }
 
@@ -93,7 +93,7 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index', ['currentDept' => $currentDepartment]))
             ->with('flash.banner', 'Permission edited.');
     }
 
@@ -111,7 +111,7 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index', ['currentDept' => $currentDepartment]))
             ->with('flash.banner', 'Permission deleted.');
     }
 }

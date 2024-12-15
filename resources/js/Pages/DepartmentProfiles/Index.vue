@@ -8,20 +8,20 @@ import { Link } from '@inertiajs/vue3';
 
 <script>
     export default {
-        props: ['permissions'],
+        props: ['department_profiles'],
     }
 </script>
 <template>
-    <AppLayout title="View Permission List">
+    <AppLayout title="View Department Profile List">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                View Permission List
+                View Department Profile List
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Link class="mb-6" :href="route('permissions.create', { currentDept: $page.props.currentDept })"><PrimaryButton class="mb-4">Create Permission</PrimaryButton></Link>
+                <Link class="mb-6" :href="route('department_profiles.create', { currentDept: $page.props.currentDept })"><PrimaryButton class="mb-4">Create Department Profile</PrimaryButton></Link>
 
 
 
@@ -30,13 +30,7 @@ import { Link } from '@inertiajs/vue3';
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Permission name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Scope
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Slug
+                    Profile name
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Actions
@@ -44,24 +38,18 @@ import { Link } from '@inertiajs/vue3';
             </tr>
         </thead>
         <tbody>
-            <tr v-for="permission in permissions.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr v-for="department_profile in department_profiles.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ permission.name }}
+                    {{ department_profile.name }}
                 </th>
                 <td class="px-6 py-4">
-                    {{ permission.scope}}
-                </td>
-                <td class="px-6 py-4">
-                    {{ permission.slug}}
-                </td>
-                <td class="px-6 py-4">
-                    <Link :href="route('permissions.edit', { 
+                    <Link :href="route('department_profiles.edit', { 
                         currentDept: $page.props.currentDept,
-                         permission: permission 
+                         department_profile: department_profile 
                     })"><PrimaryButton class="mr-2">Edit</PrimaryButton></Link>
-                    <Link :href="route('permissions.destroy', {
+                    <Link :href="route('department_profiles.destroy', {
                         currentDept: $page.props.currentDept,
-                        permission: permission
+                        department_profile: department_profile
                     })" method="DELETE" as="button"><DangerButton>Delete</DangerButton></Link>
                 </td>
             </tr>

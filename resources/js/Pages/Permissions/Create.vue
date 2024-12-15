@@ -37,7 +37,7 @@ import TextInput from '@/Components/TextInput.vue';
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="px-4 py-4">
 
-                        <form @submit.prevent="form.post(route('permissions.store', { currentDepartment: $page.props.currentDept }))">
+                        <form @submit.prevent="form.post(route('permissions.store', { currentDept: $page.props.currentDept }))">
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-4">
                                     <InputLabel for="name" value="Name" />

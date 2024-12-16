@@ -10,7 +10,7 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($currentDepartment)
+    public function index()
     {
         $permissions = cache()->tags('permissions')->remember('list', 10080, function() {
             return Permission::paginate(10);
@@ -24,7 +24,7 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($currentDepartment)
+    public function create()
     {
         return Inertia::render('Permissions/Create');
     }
@@ -32,7 +32,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $currentDepartment)
+    public function store(Request $request)
     {
         $attributes = $request->validate([
             'name' => 'required',
@@ -45,7 +45,7 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index'))
             ->with('flash.banner', 'Permission created.');
     }
 
@@ -62,7 +62,7 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($currentDepartment, $permission)
+    public function edit($permission)
     {
         $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
             return Permission::find($permission);
@@ -76,7 +76,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $currentDepartment, $permission)
+    public function update(Request $request, $permission)
     {
         $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
             return Permission::find($permission);
@@ -93,14 +93,14 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index'))
             ->with('flash.banner', 'Permission edited.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($currentDepartment, $permission)
+    public function destroy($permission)
     {
         $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
             return Permission::find($permission);
@@ -111,7 +111,7 @@ class PermissionController extends Controller
         cache()->tags('permissions')->flush();
 
 
-        return redirect(route('permissions.index', ['currentDepartment' => $currentDepartment]))
+        return redirect(route('permissions.index'))
             ->with('flash.banner', 'Permission deleted.');
     }
 }

@@ -21,6 +21,7 @@ import { Link } from '@inertiajs/vue3';
                         <Link :href="route('permissions.index')"><PrimaryButton class="mr-4">Permissions</PrimaryButton></Link>
                         <Link :href="route('department_profiles.index')"><PrimaryButton class="mr-4">Department Profiles</PrimaryButton></Link>
                         <Link :href="route('departments.index')"><PrimaryButton class="mr-4">Departments</PrimaryButton></Link>
+                        <Link :href="route('nav_links.index')"><PrimaryButton class="mr-4">Navigation Links</PrimaryButton></Link>
                     </div>
                 </div>
             </div>

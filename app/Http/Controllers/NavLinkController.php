@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Permission;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\NavLink;
+class NavLinkController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $nav_links = cache()->tags('nav_links')->remember('list', 10080, function() {
+            return NavLink::paginate(10);
+        });
+
+        return Inertia::render('NavLinks/Index', [
+            'nav_links' => $nav_links,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return Inertia::render('Permissions/Create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $attributes = $request->validate([
+            'name' => 'required',
+            'scope' => 'required',
+            'slug' => 'required|unique:permissions',
+        ]);
+
+        $permission = Permission::create($attributes);
+
+        cache()->tags('permissions')->flush();
+
+
+        return redirect(route('permissions.index'))
+            ->with('flash.banner', 'Permission created.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($currentDepartment, $permission)
+    {
+        $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
+            return Permission::find($permission);
+        });
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($permission)
+    {
+        $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
+            return Permission::find($permission);
+        });
+
+        return Inertia::render('Permissions/Edit', [
+            'permission' => $permission,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $permission)
+    {
+        $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
+            return Permission::find($permission);
+        });
+
+        $attributes = $request->validate([
+            'name' => 'required',
+            'scope' => 'required',
+            'slug' => 'required|unique:permissions,slug,' . $permission->id,
+        ]);
+
+        $permission->update($attributes);
+
+        cache()->tags('permissions')->flush();
+
+
+        return redirect(route('permissions.index'))
+            ->with('flash.banner', 'Permission edited.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($permission)
+    {
+        $permission = cache()->tags('permissions')->remember($permission, 10080, function() use ($permission) {
+            return Permission::find($permission);
+        });
+
+        $permission->delete();
+
+        cache()->tags('permissions')->flush();
+
+
+        return redirect(route('permissions.index'))
+            ->with('flash.banner', 'Permission deleted.');
+    }
+}

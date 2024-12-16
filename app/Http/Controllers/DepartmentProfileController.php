@@ -40,7 +40,7 @@ class DepartmentProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $currentDepartment)
+    public function store(Request $request)
     {
         $attributes = $request->validate([
             'name' => 'required',
@@ -62,14 +62,14 @@ class DepartmentProfileController extends Controller
         cache()->tags('department_profiles')->flush();
 
 
-        return redirect(route('department_profiles.index', ['currentDept' => $currentDepartment]))
+        return redirect(route('department_profiles.index'))
             ->with('flash.banner', 'Department Profile created.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($currentDept, $departmentProfile)
+    public function show($departmentProfile)
     {
         $departmentProfile = cache()->tags('department_profiles')->remember($departmentProfile, 10080, function() use ($departmentProfile) {
             return DepartmentProfile::find($departmentProfile);
@@ -79,7 +79,7 @@ class DepartmentProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($currentDept, $departmentProfile)
+    public function edit($departmentProfile)
     {
         $departmentProfile = cache()->tags('department_profiles')->remember($departmentProfile, 10080, function() use ($departmentProfile) {
             return DepartmentProfile::find($departmentProfile);
@@ -98,7 +98,7 @@ class DepartmentProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $currentDept, $departmentProfile)
+    public function update(Request $request, $departmentProfile)
     {
         $departmentProfile = cache()->tags('department_profiles')->remember($departmentProfile, 10080, function() use ($departmentProfile) {
             return DepartmentProfile::find($departmentProfile);
@@ -124,14 +124,14 @@ class DepartmentProfileController extends Controller
         cache()->tags('department_profiles')->flush();
 
 
-        return redirect(route('department_profiles.index', ['currentDept' => $currentDepartment]))
+        return redirect(route('department_profiles.index'))
             ->with('flash.banner', 'Department Profile edited.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($currentDepartment, $departmentProfile)
+    public function destroy( $departmentProfile)
     {
         $departmentProfile = cache()->tags('department_profiles')->remember($departmentProfile, 10080, function() use ($departmentProfile) {
             return DepartmentProfile::find($departmentProfile);
@@ -142,7 +142,7 @@ class DepartmentProfileController extends Controller
         cache()->tags('department_profiles')->flush();
 
 
-        return redirect(route('department_profiles.index', ['currentDept' => $currentDepartment]))
+        return redirect(route('department_profiles.index'))
             ->with('flash.banner', 'Department Profile deleted.');
     }
 }

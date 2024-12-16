@@ -46,7 +46,6 @@ import SelectInput from '@/Components/SelectInput.vue';
                     <div class="px-4 py-4">
 
                         <form @submit.prevent="form.post(route('departments.store'))">
-                            {{form}}
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-4">
                                     <InputLabel for="name" value="Name" />

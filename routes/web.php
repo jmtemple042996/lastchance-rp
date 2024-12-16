@@ -28,6 +28,7 @@ Route::middleware([
 });
 
 
+    Route::resource('nav_links', NavLinkController::class);
     Route::resource('departments', DepartmentController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('department_profiles', DepartmentProfileController::class);

@@ -18,8 +18,9 @@ import { Link } from '@inertiajs/vue3';
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="px-4 py-4 dark:text-gray-300">
                     <div class="mb-4 font-bold">Community</div>
-                        <Link :href="route('permissions.index', { currentDept: $page.props.currentDept})"><PrimaryButton class="mr-4">Permissions</PrimaryButton></Link>
-                        <Link :href="route('department_profiles.index', { currentDept: $page.props.currentDept})"><PrimaryButton class="mr-4">Department Profiles</PrimaryButton></Link>
+                        <Link :href="route('permissions.index')"><PrimaryButton class="mr-4">Permissions</PrimaryButton></Link>
+                        <Link :href="route('department_profiles.index')"><PrimaryButton class="mr-4">Department Profiles</PrimaryButton></Link>
+                        <Link :href="route('departments.index')"><PrimaryButton class="mr-4">Departments</PrimaryButton></Link>
                     </div>
                 </div>
             </div>
